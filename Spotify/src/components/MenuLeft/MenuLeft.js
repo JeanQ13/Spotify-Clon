@@ -1,4 +1,4 @@
-import React, {useStatel, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Menu, Icon} from "semantic-ui-react";
 import {Link, withRouter} from "react-router-dom";
 import { isUserAdmin } from "../../utils/Api";

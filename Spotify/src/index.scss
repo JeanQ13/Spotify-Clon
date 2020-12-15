@@ -81,11 +81,10 @@ code {
     .menu {
       background-color: $background-grey-light;
       border: 0;
-
-      item {
-        border-color: $border-light-dark;
-        color: $font-light;
-      }
+    }
+    .item {
+      border-color: $border-light-dark;
+      color: $font-light;
     }
   }
 }
