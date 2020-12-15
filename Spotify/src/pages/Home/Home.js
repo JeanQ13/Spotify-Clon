@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { map } from "lodash";
 import BannerHome from "../../components/BannerHome";
+import BasicSliderItems from "../../components/Sliders/BasicSliderItems";
 import firebase from "../../utils/Firebase";
 import "firebase/firestore";
 
@@ -10,7 +11,6 @@ const db= firebase.firestore(firebase);
 
 export default function Home() {
     const [artists, setArtists] = useState([]);
-    console.log(artists)
     useEffect(() => {
         db.collection("artists")
         .get()
@@ -29,7 +29,12 @@ export default function Home() {
         <>
         <BannerHome/>
         <div className="home">
-            
+            <BasicSliderItems
+            title="Ultimos artistas"
+            data={artists}
+            folderImage="artist" 
+            urlName="artist"
+            />
             <h2>mas</h2>
         </div>
         </>
