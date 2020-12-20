@@ -23,7 +23,6 @@ export default function AddAlbumForm(props) {
     const [file, setFile] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    console.log(initialValueForm());
 
     useEffect(() => {
         db.collection("artists")

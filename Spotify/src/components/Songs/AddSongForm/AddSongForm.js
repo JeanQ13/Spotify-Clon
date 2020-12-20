@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Form, Input, Button, Icon, Dropdown } from "semantic-ui-react";
+import { useDropzone } from "react-dropzone";
 import { map } from "lodash";
 import firebase from "../../../utils/Firebase";
 import "firebase/firestore";
@@ -11,6 +12,8 @@ const db = firebase.firestore(firebase);
 export default function AddSongForm(props) {
     const { setShowModal } = props;
     const [albums, setAlbums] = useState([]);
+    const [file, setFile] = useState(null);
+    
 
   useEffect(() => {
     db.collection("albums")
@@ -18,7 +21,6 @@ export default function AddSongForm(props) {
       .then(response => {
         const albumsArray = [];
         map(response?.docs, album => {
-            console.log(response);
           const data = album.data();
           albumsArray.push({
             key: album.id,
@@ -30,8 +32,19 @@ export default function AddSongForm(props) {
       });
   }, []);
 
+  const onDrop = useCallback(acceptedFiles =>{
+      const file = acceptedFiles[0];
+      setFile(file);
+  });
+
+  const { getRootProps, getInputProps } = useDropzone({
+      accept: ".mp3",
+      noKeyboard: true,
+      onDrop
+  })
+
     const onSubmit = () =>{
-        console.log("enviando");
+    
     }
 
     return (
@@ -48,7 +61,16 @@ export default function AddSongForm(props) {
                 />
             </Form.Field>
             <Form.Field>
-                <h2>UploadSong</h2>
+                <div className="song-upload" {...getRootProps()} >
+                    <input {...getInputProps()} />
+                    <Icon name="cloud upload" className={file && "load"}/>
+                    <div>
+                        <p>Arrastra tu canción o haz click <span>aquí</span> </p>
+                        {file &&(
+                            <p>Canción subida: <span>{file.name}</span></p>
+                        )}
+                    </div>
+                </div>
             </Form.Field>
             <Button type="submit">
                 Subir canción
