@@ -24,6 +24,11 @@ export default function Player(props) {
         setPlaying(false);
       };
 
+      const onProgress = data => {
+        setPlayedSeconds(data.playedSeconds);
+        setTotalSeconds(data.loadedSeconds);
+      };
+
     return (
 
         <div className="player">
@@ -60,6 +65,15 @@ export default function Player(props) {
                 />
                 </Grid.Column>
             </Grid>
+            <ReactPlayer
+                className="react-player"
+                url={songData?.url}
+                playing={playing}
+                height="0"
+                width="0"
+                volume={volume}
+                onProgress={e => onProgress(e)}
+      />
         </div>
     )
 }
