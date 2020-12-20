@@ -12,6 +12,7 @@ function Album(props) {
     const { match, playerSong } = props;
     const [album, setAlbum] = useState(null);
     const [albumImg, setAlbumImg] = useState(null);
+    const [artist, setArtist] = useState(null);
 
     useEffect(() => {
         db.collection("albums")
@@ -30,6 +31,17 @@ function Album(props) {
             .getDownloadURL()
             .then(url => {
               setAlbumImg(url);
+            });
+        }
+      }, [album]);
+
+      useEffect(() => {
+        if (album) {
+          db.collection("artists")
+            .doc(album?.artist)
+            .get()
+            .then(response => {
+              setArtist(response.data());
             });
         }
       }, [album]);

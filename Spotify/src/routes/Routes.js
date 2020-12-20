@@ -26,7 +26,7 @@ const {user, setReloadApp} = props;
             <Route path="/albums" exact>
                 <Albums/>
             </Route>
-            <Route path="/album:id" exact>
+            <Route path="/album/:id" exact>
                 <Album/>
             </Route>
             <Route path="/settings" exact>
