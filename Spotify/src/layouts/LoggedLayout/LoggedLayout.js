@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Grid, GridRow } from "semantic-ui-react";
 import Routes from "../../routes/Routes";
 import {BrowserRouter as Router} from "react-router-dom";
@@ -10,7 +10,11 @@ import "./LoggedLayout.scss";
 
 export default function LoggedLayout(props) {
     const {user, setReloadApp} = props;
+    const [songData, setSongData] = useState(null);
 
+    const playerSong = (albumImage, songName, songUrl) => {
+       // setSongData({url: songUrl, image:albumImage, name:songName})
+      };
 
 
     return (
@@ -27,7 +31,7 @@ export default function LoggedLayout(props) {
             </Grid.Row>
             <Grid.Row>
                 <Grid.Column width={16}>
-                    <Player/>
+                    <Player songData={songData}/>
                 </Grid.Column>
             </Grid.Row>
         </Grid>
