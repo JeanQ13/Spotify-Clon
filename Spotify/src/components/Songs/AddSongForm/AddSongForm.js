@@ -11,9 +11,11 @@ const db = firebase.firestore(firebase);
 
 export default function AddSongForm(props) {
     const { setShowModal } = props;
+    const [formData, setFormData] = useState(initialValueForm());
     const [albums, setAlbums] = useState([]);
     const [file, setFile] = useState(null);
     
+
 
   useEffect(() => {
     db.collection("albums")
@@ -50,7 +52,10 @@ export default function AddSongForm(props) {
     return (
         <Form className="add-song-form" onSubmit={onSubmit}>
             <Form.Field>
-                <Input placeholder="Nombre de la canción"/>
+                <Input 
+                placeholder="Nombre de la canción"
+                onChange={e => setFormData({...formData, name: e.target.value})}
+                />
             </Form.Field>
             <Form.Field>
                 <Dropdown
@@ -58,6 +63,7 @@ export default function AddSongForm(props) {
                 search
                 selection
                 options={albums}
+                onChange={(e, data) => setFormData({...formData, album: data.value})}
                 />
             </Form.Field>
             <Form.Field>
@@ -77,4 +83,11 @@ export default function AddSongForm(props) {
             </Button>
         </Form>
     )
+}
+
+function initialValueForm(){
+    return{
+        name:"",
+        album:""
+    }
 }
