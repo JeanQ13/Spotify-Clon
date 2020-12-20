@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { withRouter } from "react-router-dom";
-import BannerArtist from "../../components/Artists/BannerArtist";
 import { map } from "lodash";
+import BannerArtist from "../../components/Artists/BannerArtist";
+import BasicSliderItems from "../../components/Sliders/BasicSliderItems";
+
 import firebase from "../../utils/Firebase";
 import "firebase/firebase";
 
@@ -46,7 +48,14 @@ function Artist(props) {
     return (
         <div className="artist">
             {artist && <BannerArtist artist={artist} />}
-            <h2>Mas info</h2>
+            <div className="artist__content">
+                <BasicSliderItems
+                title="Álbumes"
+                data={albums}
+                folderImage="album"
+                urlName="album"
+                />
+            </div>
         </div>
     );
 }
