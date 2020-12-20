@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { map } from "lodash";
+import { Link } from "react-router-dom";
 import { Grid } from "semantic-ui-react";
 import firebase from "../../utils/Firebase";
 import "firebase/firestore";
+import "firebase/storage";
 
 import "./Albums.scss";
 
@@ -41,8 +43,30 @@ export default function Albums() {
 }
 
 function Album(props){
-
     const { album } = props;
-    console.log(props);
-    return <h2>{album.name}</h2>
+    const [imageUrl, setImageUrl] = useState(null);
+    
+
+    useEffect(() => {
+        firebase
+          .storage()
+          .ref(`album/${album.banner}`)
+          .getDownloadURL()
+          .then(url => {
+            setImageUrl(url);
+          });
+      }, [album]);
+
+      return (
+        <Link to={`/album/${album.id}`}>
+          <div className="albums__item">
+            <div
+              className="avatar"
+              style={{ backgroundImage: `url('${imageUrl}')` }}
+            />
+            <h3>{album.name}</h3>
+          </div>
+        </Link>
+      );
+ 
 }
