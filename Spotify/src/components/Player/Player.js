@@ -48,7 +48,16 @@ export default function Player(props) {
                     />
                 </Grid.Column>
                 <Grid.Column width={4} className="right">
-                    <h2>right</h2>
+                <Input
+                    label={<Icon name="volume up" />}
+                    min={0}
+                    max={1}
+                    step={0.01}
+                    type="range"
+                    name="volume"
+                    onChange={(e, data) => setVolume(Number(data.value))}
+                    value={volume}
+                />
                 </Grid.Column>
             </Grid>
         </div>
