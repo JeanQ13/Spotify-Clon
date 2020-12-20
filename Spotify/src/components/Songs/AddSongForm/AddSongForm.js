@@ -2,9 +2,12 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Form, Input, Button, Icon, Dropdown } from "semantic-ui-react";
 import { useDropzone } from "react-dropzone";
 import { map } from "lodash";
-import { toast } from "react-toastify"
+import { toast } from "react-toastify";
+import uuid from "uuid/dist/v4";
 import firebase from "../../../utils/Firebase";
 import "firebase/firestore";
+import "firebase/storage";
+
 import "./AddSongForm.scss";
 
 
@@ -47,6 +50,14 @@ export default function AddSongForm(props) {
       onDrop
   })
 
+  const uploadSong = fileName => {
+    const ref = firebase
+      .storage()
+      .ref()
+      .child(`song/${fileName}`);
+    return ref.put(file);
+  };
+
   const onSubmit = () => {
     if (!formData.name || !formData.album) {
       toast.warning(
@@ -56,6 +67,16 @@ export default function AddSongForm(props) {
       toast.warning("La canción es obligatoria.");
     } else {
       setIsLoading(true);
+      const fileName= uuid();
+      uploadSong(fileName)
+      .then(response =>{
+        console.log("ok")
+      })
+      .catch(() =>{
+          toast.error("Error al subir la canción");
+          setIsLoading(false);
+      })
+      
     }
   };
 
@@ -88,7 +109,7 @@ export default function AddSongForm(props) {
                     </div>
                 </div>
             </Form.Field>
-            <Button type="submit">
+            <Button type="submit" loading={isLoading}>
                 Subir canción
             </Button>
         </Form>
