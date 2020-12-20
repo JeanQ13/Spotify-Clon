@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Form, Input, Button, Icon, Dropdown } from "semantic-ui-react";
 import { useDropzone } from "react-dropzone";
 import { map } from "lodash";
+import { toast } from "react-toastify"
 import firebase from "../../../utils/Firebase";
 import "firebase/firestore";
 import "./AddSongForm.scss";
@@ -14,6 +15,7 @@ export default function AddSongForm(props) {
     const [formData, setFormData] = useState(initialValueForm());
     const [albums, setAlbums] = useState([]);
     const [file, setFile] = useState(null);
+    const [isLoading, setIsLoading] = useState(false)
     
 
 
@@ -45,9 +47,17 @@ export default function AddSongForm(props) {
       onDrop
   })
 
-    const onSubmit = () =>{
-    
+  const onSubmit = () => {
+    if (!formData.name || !formData.album) {
+      toast.warning(
+        "El nombre de la canción y el álbum al que pertence son obligatorios."
+      );
+    } else if (!file) {
+      toast.warning("La canción es obligatoria.");
+    } else {
+      setIsLoading(true);
     }
+  };
 
     return (
         <Form className="add-song-form" onSubmit={onSubmit}>
