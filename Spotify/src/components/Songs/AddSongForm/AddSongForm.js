@@ -69,15 +69,35 @@ export default function AddSongForm(props) {
       setIsLoading(true);
       const fileName= uuid();
       uploadSong(fileName)
-      .then(response =>{
-        console.log("ok")
+      .then(() =>{
+        db.collection("songs")
+            .add({
+              name: formData.name,
+              album: formData.album,
+              fileName: fileName
+            })
+            .then(() => {
+              toast.success("Canción subida correctamente.");
+              resetForm();
+              setIsLoading(false);
+              setShowModal(false);
+            })
+            .catch(() => {
+              toast.error("Error al subir la canción.");
+              setIsLoading(false);
+            });
       })
       .catch(() =>{
           toast.error("Error al subir la canción");
           setIsLoading(false);
       })
-      
     }
+  };
+
+  const resetForm = () => {
+    setFormData(initialValueForm());
+    setFile(null);
+    setAlbums([]);
   };
 
     return (
