@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { Icon } from "semantic-ui-react";
 import Slider from "react-slick";
 import { map, size } from "lodash";
+import { Link } from "react-router-dom";
 import firebase from "../../../utils/Firebase";
 import "firebase/firestore";
 import "firebase/storage";
@@ -64,5 +66,19 @@ function Song(props){
             setBanner(bannerUrl);
           });
       };
+
+      return (
+        <div className="songs-slider__list-song">
+          <div
+            className="avatar"
+            style={{ backgroundImage: `url('${banner}')` }}
+        >
+            <Icon name="play circle outline" />
+          </div>
+          <Link to={`/album/${album?.id}`}>
+            <h3>{item.name}</h3>
+          </Link>
+        </div>
+      );
     
 }
