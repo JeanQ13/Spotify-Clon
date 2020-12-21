@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Slider from "react-slick";
-import { size } from "lodash";
-import { map } from "lodash";
+import { map, size } from "lodash";
+import firebase from "../../../utils/Firebase";
+import "firebase/firestore";
+import "firebase/storage";
  
 import "./SongsSlider.scss";
+
+const db = firebase.firestore(firebase);
 
 export default function SongsSlider(props) {
     const { title, data } = props;
@@ -36,6 +40,29 @@ export default function SongsSlider(props) {
 
 function Song(props){
     const { item } = props;
-    return <p>{item.name}</p>;
+    const [banner, setBanner] = useState(null);
+    const [album, setAlbum] = useState(null);
+
+    useEffect(() => {
+        db.collection("albums")
+          .doc(item.album)
+          .get()
+          .then(response => {
+            const albumTemp = response.data();
+            albumTemp.id = response.id;
+            setAlbum(albumTemp);
+            getImage(albumTemp);
+          });
+      }, [item]);
+
+      const getImage = album => {
+        firebase
+          .storage()
+          .ref(`album/${album.banner}`)
+          .getDownloadURL()
+          .then(bannerUrl => {
+            setBanner(bannerUrl);
+          });
+      };
     
 }
