@@ -12,6 +12,7 @@ const db= firebase.firestore(firebase);
 export default function Home() {
     const [artists, setArtists] = useState([]);
     const [albums, setAlbums] = useState([]);
+    const [songs, setSongs] = useState([]);
 
     useEffect(() => {
         db.collection("artists")
@@ -40,6 +41,21 @@ export default function Home() {
             setAlbums(arrayAlbums);
         })
     }, []);
+
+    useEffect(() => {
+        db.collection("songs")
+          .limit(10)
+          .get()
+          .then(response => {
+            const arraySongs = [];
+            map(response?.docs, song => {
+              const data = song.data();
+              data.id = song.id;
+              arraySongs.push(data);
+            });
+            setSongs(arraySongs);
+          });
+      }, []);
 
     return (
         <>
