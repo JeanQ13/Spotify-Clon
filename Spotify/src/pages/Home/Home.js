@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { map } from "lodash";
 import BannerHome from "../../components/BannerHome";
 import BasicSliderItems from "../../components/Sliders/BasicSliderItems";
+import SongsSliderItems from "../../components/Sliders/SongsSlider";
 import firebase from "../../utils/Firebase";
 import "firebase/firestore";
 
@@ -72,6 +73,12 @@ export default function Home() {
             data={albums}
             folderImage="album" 
             urlName="album"
+            />
+            <SongsSliderItems
+            title="Últimas canciones"
+            data={songs}
+            folderImage="songs" 
+            urlName="songs"
             />
         </div>
         </>
