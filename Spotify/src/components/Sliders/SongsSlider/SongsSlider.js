@@ -12,7 +12,7 @@ import "./SongsSlider.scss";
 const db = firebase.firestore(firebase);
 
 export default function SongsSlider(props) {
-    const { title, data } = props;
+    const { title, data, playerSong} = props;
     const settings = {
       dats: false,
       infiniti: true,
@@ -32,7 +32,7 @@ export default function SongsSlider(props) {
             <h2>{title}</h2>
             <Slider {...settings}>
             {map(data, item => (
-            <Song key={item.id} item={item} />
+            <Song key={item.id} item={item} playerSong={playerSong} />
         ))}
             </Slider>
         </div>
@@ -41,7 +41,7 @@ export default function SongsSlider(props) {
 }
 
 function Song(props){
-    const { item } = props;
+    const { item, playerSong } = props;
     const [banner, setBanner] = useState(null);
     const [album, setAlbum] = useState(null);
 
@@ -67,12 +67,17 @@ function Song(props){
           });
       };
 
+      const onPlay = () => {
+        playerSong(banner, item.name, item.fileName);
+      };
+
       return (
         <div className="songs-slider__list-song">
           <div
             className="avatar"
             style={{ backgroundImage: `url('${banner}')` }}
-        >
+            onClick={onPlay}
+          >
             <Icon name="play circle outline" />
           </div>
           <Link to={`/album/${album?.id}`}>
