@@ -5,7 +5,7 @@ import { map } from "lodash";
 import "./ListSongs.scss";
 
 export default function ListSongs(props) {
-    const { songs, albumImg } = props;
+    const { songs, albumImg, playerSong } = props;
 
 
     return (
@@ -23,6 +23,8 @@ export default function ListSongs(props) {
                     <Song
                     key={song.id}
                     song={song}
+                    playerSong={playerSong}
+                    albumImg={albumImg}
                     />
                 ))}
             </Table.Body>
@@ -31,10 +33,14 @@ export default function ListSongs(props) {
 }
 
 function Song(props){
-    const { song, albumImg } = props;
+    const { song, albumImg, playerSong } = props;
+    
+    const onPlay = () => {
+        playerSong(albumImg, song.name, song.fileName);
+      };
 
     return(
-        <Table.Row>
+        <Table.Row onClick={onPlay}>
         <Table.Cell collapsing>
             <Icon name="play circle outline" >
             </Icon>

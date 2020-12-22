@@ -79,7 +79,7 @@ function Album(props) {
             <HeaderAlbum album={album} albumImg={albumImg} artist={artist} />
           </div>
           <div className="album__songs">
-              <ListSongs songs={songs} albumImg={albumImg}/>
+              <ListSongs songs={songs} albumImg={albumImg} playerSong={playerSong}/>
           </div>
         </div>
       );
