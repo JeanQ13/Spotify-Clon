@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Loader } from "semantic-ui-react";
 import { withRouter } from "react-router-dom";
 import { map } from "lodash";
+import ListSongs from "../../components/Songs/ListSongs";
 import firebase from "../../utils/Firebase";
 import "firebase/firestore";
 import "firebase/storage";
@@ -78,7 +79,7 @@ function Album(props) {
             <HeaderAlbum album={album} albumImg={albumImg} artist={artist} />
           </div>
           <div className="album__songs">
-              <p>Lista de canciones</p>
+              <ListSongs songs={songs} albumImg={albumImg}/>
           </div>
         </div>
       );
