@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import { map } from "lodash";
 import BannerArtist from "../../components/Artists/BannerArtist";
 import BasicSliderItems from "../../components/Sliders/BasicSliderItems";
+import SongsSlider from "../../components/Sliders/SongsSlider";
 
 import firebase from "../../utils/Firebase";
 import "firebase/firebase";
@@ -13,7 +14,7 @@ import "./Artist.scss";
 const db = firebase.firestore(firebase);
 
 function Artist(props) {
-    const { match } = props;
+    const { match, playerSong } = props;
     const [artist, setArtist] = useState(null);
     const [albums, setAlbums] = useState(null);
     const [songs, setSongs] = useState([]);
@@ -78,6 +79,11 @@ function Artist(props) {
                 data={albums}
                 folderImage="album"
                 urlName="album"
+                />
+                <SongsSlider
+                title="Canciones"
+                data={songs}
+                playerSong={playerSong}
                 />
             </div>
         </div>
