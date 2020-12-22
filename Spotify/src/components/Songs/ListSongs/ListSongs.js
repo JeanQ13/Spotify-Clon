@@ -19,34 +19,27 @@ export default function ListSongs(props) {
                 </Table.Row>
             </Table.Header>
             <Table.Body>
-                <Table.Row>
-                    <Table.Cell collapsing>
-                        <Icon name="play circle outline" >
-                        </Icon>
-                    </Table.Cell>
-                    <Table.Cell>
-                        Canción 01
-                    </Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                    <Table.Cell collapsing>
-                        <Icon name="play circle outline" >
-                        </Icon>
-                    </Table.Cell>
-                    <Table.Cell>
-                        Canción 03
-                    </Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                    <Table.Cell collapsing>
-                        <Icon name="play circle outline" >
-                        </Icon>
-                    </Table.Cell>
-                    <Table.Cell>
-                        Canción 03
-                    </Table.Cell>
-                </Table.Row>
+                {map(songs, song => (
+                    <Song
+                    key={song.id}
+                    song={song}
+                    />
+                ))}
             </Table.Body>
         </Table>
+    )
+}
+
+function Song(props){
+    const { song, albumImg } = props;
+
+    return(
+        <Table.Row>
+        <Table.Cell collapsing>
+            <Icon name="play circle outline" >
+            </Icon>
+        </Table.Cell>
+        <Table.Cell>{song.name}</Table.Cell>
+    </Table.Row>
     )
 }
