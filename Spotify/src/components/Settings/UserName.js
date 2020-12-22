@@ -31,7 +31,6 @@ function ChangeDisplayNameForm(props){
     const [isLoading, setIsLoading] = useState(false);
 
     const onSubmit = () =>{
-        console.log(formData.displayName);
         if(!formData.displayName || formData.displayName === displayName){
             setShowModal(false);
         } else{

@@ -143,7 +143,6 @@ function ButtonResetSendEmailVerification(props) {
           toast.success("Se ha enviado el email de verificacion.");
         })
         .catch(err => {
-            console.log(err);
           handlerErrors(err.code);
         })
         .finally(() => {
