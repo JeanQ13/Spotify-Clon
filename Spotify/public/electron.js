@@ -9,11 +9,7 @@ let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 1500,
-    height: 1000,
-    resizable: false,
-    title: "Spotify",
-    titleBarStyle: "hiddenInset"
+    width: 1500, height: 1000, resizable: false, title: "Spotify", titleBarStyle: "hiddenInset" 
   });
   mainWindow.loadURL(
     isDev
