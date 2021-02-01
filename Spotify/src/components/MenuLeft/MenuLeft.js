@@ -73,7 +73,17 @@ function MenuLeft(props) {
                 <Menu.Item as={Link} to="/albums" active={activeMenu === "/albums"} onClick={handlerMenu}>
                     <Icon name="window maximize outline"/> Albumes
                 </Menu.Item>
+                <Menu.Item as={Link} to="/search" active={activeMenu === "/search"} onClick={handlerMenu}>
+                    <Icon name= "search" /> Buscar
+                </Menu.Item>
+
+
             </div>
+            <div className= "footer" > 
+            <Menu.Item onClick={()=>handlerModal("playlist")}>
+                    <Icon name="plus square outline"/> Agregar Playlist
+                </Menu.Item>
+             </div>
             {userAdmin && (
              <div className="footer">
                 <Menu.Item onClick={()=>handlerModal("artist")}>
